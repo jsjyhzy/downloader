@@ -5,7 +5,7 @@ ARIA2=/usr/bin/aria2c
 MINIO=/usr/bin/minio
 
 web_engine () {
-    $NGINX -c /config/www.conf
+    $NGINX -c /config/www.conf -g 'daemon off;'
 }
 
 aria_engine () {
