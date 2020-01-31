@@ -26,11 +26,13 @@ FROM alpine:3.11 as ariang-provider
 
 ENV ARIANG_VERSION=1.1.4
 
+WORKDIR /ariang
+
 RUN apk update &&\
     apk add wget &&\
     wget https://github.com/mayswind/AriaNg/releases/download/${ARIANG_VERSION}/AriaNg-${ARIANG_VERSION}.zip -O ariang.zip &&\
-    mkdir /var/www/html &&\
-    unzip -o ariang.zip -d /var/www/html
+    mkdir html &&\
+    unzip -o ariang.zip -d /ariang/html
 
 # <============== Section of MinIO provider ==============>
 FROM minio/minio as minio-provider
@@ -53,7 +55,7 @@ VOLUME [ "/data" , "/config"]
 COPY template .
 COPY scripts .
 COPY --from=aria-builder /aria2/src/aria2c /usr/bin/aria2c
-COPY --from=ariang-provider /var/www/html /var/www/html
+COPY --from=ariang-provider /ariang/html /var/www/html
 COPY --from=minio-provider /usr/bin/minio /usr/bin/minio
 
 EXPOSE 80
