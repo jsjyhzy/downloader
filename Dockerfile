@@ -29,7 +29,7 @@ ENV ARIANG_VERSION=1.1.4
 RUN apk update &&\
     apk add wget &&\
     wget https://github.com/mayswind/AriaNg/releases/download/${ARIANG_VERSION}/AriaNg-${ARIANG_VERSION}.zip -O ariang.zip &&\
-    rm -r /var/www/html && mkdir /var/www/html &&\
+    mkdir /var/www/html &&\
     unzip -o ariang.zip -d /var/www/html
 
 # <============== Section of MinIO provider ==============>
