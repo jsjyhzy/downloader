@@ -74,4 +74,4 @@ RUN apk update &&\
     ln -sf /dev/stderr /var/log/nginx/error.log &&\
     apk del gettext
 
-ENTRYPOINT [ "bash", "scripts/startup.sh" ]
+ENTRYPOINT [ "sh", "scripts/startup.sh" ]
