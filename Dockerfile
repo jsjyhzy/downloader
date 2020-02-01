@@ -46,7 +46,7 @@ ENV MINIO_UPDATE=off
 
 ENV MINIO_LOCATION=s3 \
     MINIO_ACCESS_KEY="download" \
-    MINIO_SECRECT_KEY="download" \
+    MINIO_SECRET_KEY="download" \
     RPC_SECRET="download"
 
 WORKDIR /downloader
@@ -65,7 +65,8 @@ RUN apk update &&\
     chmod +x /usr/bin/aria2c &&\
     chmod +x /usr/bin/minio &&\
     update-ca-certificates &&\
-    sed -i 's/include.*/include \/config\/www.conf/g' /etc/nginx/nginx.conf &&\
+    rm /etc/nginx/conf.d/* &&\
+    ln -s /config/www.conf /etc/nginx/conf.d/www.conf &&\
     ln -sf /dev/stdout /var/log/nginx/access.log &&\
     ln -sf /dev/stderr /var/log/nginx/error.log
 
