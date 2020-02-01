@@ -52,8 +52,8 @@ ENV MINIO_LOCATION=s3 \
 WORKDIR /downloader
 VOLUME [ "/data" , "/config"]
 
-COPY template .
-COPY scripts .
+COPY template /downloader/template
+COPY scripts /downloader/scripts
 COPY --from=aria-builder /aria2/src/aria2c /usr/bin/aria2c
 COPY --from=ariang-provider /ariang/html /var/www/html
 COPY --from=minio-provider /usr/bin/minio /usr/bin/minio
