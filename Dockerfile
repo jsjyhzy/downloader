@@ -61,17 +61,12 @@ COPY --from=minio-provider /usr/bin/minio /usr/bin/minio
 EXPOSE 80
 
 RUN apk update &&\
-    apk add --no-cache gettext && cd template &&\
-    envsubst '${RPC_SECRET}'     < aria2.template > /config/aria2.conf &&\
-    envsubst '${MINIO_LOCATION}' < www.template   > /config/www.conf &&\
+    apk add --no-cache ca-certificates gettext nginx parallel &&\
     chmod +x /usr/bin/aria2c &&\
     chmod +x /usr/bin/minio &&\
-    apk update &&\
-    apk add --no-cache ca-certificates nginx parallel &&\
     update-ca-certificates &&\
-    sed -i 's/include.*/inlcude \/config\/www.conf/g' /etc/nginx/nginx.conf &&\
+    sed -i 's/include.*/include \/config\/www.conf/g' /etc/nginx/nginx.conf &&\
     ln -sf /dev/stdout /var/log/nginx/access.log &&\
-    ln -sf /dev/stderr /var/log/nginx/error.log &&\
-    apk del gettext
+    ln -sf /dev/stderr /var/log/nginx/error.log
 
 ENTRYPOINT [ "sh", "scripts/startup.sh" ]

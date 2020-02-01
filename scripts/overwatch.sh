@@ -10,7 +10,7 @@ do
     nginx_pid=$(pgrep nginx)
     aria2_pid=$(pgrep aria2c)
     minio_pid=$(pgrep minio)
-    if [ -z "$nginx_pid" || -z "$aria2_pid" || -z "$minio_pid" ]
+    if [[ -z "$nginx_pid" || -z "$aria2_pid" || -z "$minio_pid" ]]
     then
         if [ -z "$nginx_pid" ]; then echo "Nginx failed"; fi
         if [ -z "$aria2_pid" ]; then echo "Aria2 failed"; fi

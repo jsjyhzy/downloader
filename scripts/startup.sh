@@ -1,3 +1,5 @@
 #!/bin/bash
 
-parallel --tag --line-buffer ::: web_engine aria_engine s3_engine mywatchdog | tr -s ab
+SPATH=/downloader/scripts
+
+ls $SPATH | grep -v startup.sh | parallel --tag --line-buffer --workdir $SPATH bash {} | tr -s ab
