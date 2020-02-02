@@ -61,7 +61,7 @@ COPY --from=minio-provider /usr/bin/minio /usr/bin/minio
 EXPOSE 80
 
 RUN apk update &&\
-    apk add --no-cache ca-certificates gettext nginx parallel &&\
+    apk add --no-cache ca-certificates bash gettext nginx parallel &&\
     chmod +x /usr/bin/aria2c &&\
     chmod +x /usr/bin/minio &&\
     update-ca-certificates &&\
@@ -70,4 +70,4 @@ RUN apk update &&\
     ln -sf /dev/stdout /var/log/nginx/access.log &&\
     ln -sf /dev/stderr /var/log/nginx/error.log
 
-ENTRYPOINT [ "sh", "scripts/startup.sh" ]
+ENTRYPOINT [ "bash", "scripts/startup.sh" ]
