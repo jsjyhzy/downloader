@@ -42,14 +42,15 @@ RUN uname
 # <============== Section of Main Image ==============>
 FROM alpine:3.11
 
-ENV MINIO_UPDATE=off
+ENV MINIO_UPDATE=off \
+    CONF_PATH=/data/config
 
 ENV MINIO_ACCESS_KEY="download" \
     MINIO_SECRET_KEY="download" \
     RPC_SECRET="download"
 
 WORKDIR /downloader
-VOLUME [ "/data" , "/config"]
+VOLUME [ "/data" ]
 
 COPY template /downloader/template
 COPY scripts /downloader/scripts
@@ -65,7 +66,7 @@ RUN apk update &&\
     chmod +x /usr/bin/minio &&\
     update-ca-certificates &&\
     rm /etc/nginx/conf.d/* &&\
-    ln -s /config/www.conf /etc/nginx/conf.d/www.conf &&\
+    ln -s ${CONF_PATH}/www.conf /etc/nginx/conf.d/www.conf &&\
     ln -sf /dev/stdout /var/log/nginx/access.log &&\
     ln -sf /dev/stderr /var/log/nginx/error.log
 
