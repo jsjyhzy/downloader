@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ARIA2=/usr/bin/aria2c
 touch ${CONF_PATH}/aria2.session

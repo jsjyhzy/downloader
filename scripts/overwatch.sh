@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 NGINX=$(which nginx)
 ARIA2=/usr/bin/aria2c
