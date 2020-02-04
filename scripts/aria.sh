@@ -5,7 +5,8 @@ touch /config/aria2.session
 
 if [ ! -f /config/aria2.conf ]
 then
-    envsubst '${RPC_SECRET}' < /downloader/template/aria2.template > /config/aria2.conf
+    cp /downloader/template/aria2.template ${CONF_PATH}/aria2.conf
+    sed -i "s/@RPC_SECRET/${RPC_SECRET}/g" ${CONF_PATH}/aria2.conf
 fi
 
 $ARIA2 --conf-path=/config/aria2.conf

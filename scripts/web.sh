@@ -6,7 +6,7 @@ mkdir -p /run/nginx
 
 if [ ! -f /config/www.conf ]
 then
-    envsubst '${MINIO_LOCATION}' < /downloader/template/www.template > /config/www.conf
+    cp /downloader/template/www.template ${CONF_PATH}/www.conf
 fi
 
 $NGINX -g 'daemon off;'
