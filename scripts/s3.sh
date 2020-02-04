@@ -2,4 +2,4 @@
 
 MINIO=/usr/bin/minio
 
-$MINIO server /data
+$MINIO server --compat /data
