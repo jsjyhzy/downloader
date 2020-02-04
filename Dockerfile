@@ -44,8 +44,7 @@ FROM alpine:3.11
 
 ENV MINIO_UPDATE=off
 
-ENV MINIO_LOCATION=s3 \
-    MINIO_ACCESS_KEY="download" \
+ENV MINIO_ACCESS_KEY="download" \
     MINIO_SECRET_KEY="download" \
     RPC_SECRET="download"
 
