@@ -5,11 +5,11 @@ ENV ARIA2_TAG=release-1.34.0
 
 RUN apk update &&\
     apk add git c-ares-dev libxml2-dev \
-            libssh2-dev libssh2-static \
-            zlib-dev zlib-static \
-            sqlite-dev sqlite-static \
-            openssl-dev openssl-libs-static \
-            gettext-dev gettext-static \
+            libssh2-dev\
+            zlib-dev\
+            sqlite-dev\
+            openssl-dev\
+            gettext-dev\
             expat-dev xz-dev \
             cppunit-dev autoconf automake libtool build-base &&\
     update-ca-certificates &&\
@@ -17,7 +17,7 @@ RUN apk update &&\
     cd aria2 &&\
     git checkout $ARIA2_TAG &&\
     autoreconf -i &&\
-    ./configure ARIA2_STATIC=yes --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt' &&\
+    ./configure --with-ca-bundle='/etc/ssl/certs/ca-certificates.crt' &&\
     make &&\
     make check
 
@@ -60,8 +60,8 @@ COPY --from=minio-provider /usr/bin/minio /usr/bin/minio
 
 EXPOSE 80
 
-RUN apk update &&\
-    apk add --no-cache ca-certificates nginx parallel &&\
+RUN apk add --no-cache ca-certificates bash nginx parallel \
+            libxml2 libssh2 zlib sqlite openssl gettext expat xz &&\
     chmod +x /usr/bin/aria2c &&\
     chmod +x /usr/bin/minio &&\
     update-ca-certificates &&\
