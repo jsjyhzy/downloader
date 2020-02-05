@@ -61,7 +61,7 @@ COPY --from=minio-provider /usr/bin/minio /usr/bin/minio
 EXPOSE 80
 
 RUN apk add --no-cache ca-certificates bash nginx parallel \
-            libxml2 libssh2 zlib sqlite openssl gettext expat xz &&\
+            c-ares libgcc libstdc++ libxml2 libssh2 sqlite-libs libintl &&\
     chmod +x /usr/bin/aria2c &&\
     chmod +x /usr/bin/minio &&\
     update-ca-certificates &&\
